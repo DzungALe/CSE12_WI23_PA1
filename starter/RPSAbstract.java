@@ -8,10 +8,10 @@ public abstract class RPSAbstract implements RPSInterface {
     protected String[] possibleMoves;
 
     // The number of games, player wins, CPU wins and ties
-    protected int numGames;
-    protected int numPlayerWins;
-    protected int numCPUWins;
-    protected int numTies;
+    protected int numGames = 0;
+    protected int numPlayerWins = 0;
+    protected int numCPUWins = 0;
+    protected int numTies = 0;
 
     // The complete history of the moves
     protected String[] playerMoves;
@@ -59,20 +59,26 @@ public abstract class RPSAbstract implements RPSInterface {
     public boolean isValidMove(String move) {
         // TODO
         // Use a loop here
+        //Checks to see if move matches any string inside possibleMoves.
+        //If yes, return true
+        for(String i : possibleMoves){
+                if(move.equals(i)){
+                        return true;
+                }
+        }
 
+        //Returns false if input is invalid
         return false;  // dummy return value so code compiles.
     }
 
     public void playRPS(String playerMove, String cpuMove) {
         // TODO
-
         // Use determineWinner to determine who won
-
         // Record the moves made
-
         // Add one to the appropriate statistics
-
         // Add appropriate Javadoc method header
+        //While loop to play as long as user input is not q
+        determineWinner(playerMove, cpuMove);
     }
 
 
