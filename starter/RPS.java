@@ -18,7 +18,7 @@ public class RPS extends RPSAbstract {
 
     public int determineWinner(String playerMove, String cpuMove) {
         // TODO
-        int playerInt = 0, cpuInt = 0;
+        int playerInt = -1, cpuInt = 0;
 
         for(int i = 0; i < possibleMoves.length; i++){
             if(playerMove.equals(possibleMoves[i]))
@@ -26,23 +26,24 @@ public class RPS extends RPSAbstract {
             if(cpuMove.equals(possibleMoves[i]))
                 cpuInt = i;
         }
+
+        //if playerInt does not get assigned to a variable, it is not a valid input, and therefore return invalid input.
+        if (playerInt == -1){
+            return RPS.INVALID_INPUT_OUTCOME;
+        }
         
         //Same move, then tie
         if(playerInt == cpuInt)
             return RPS.TIE_OUTCOME;
 
-        //Default order is Scissors, paper, rock 
+        //DEFAULT_MOVES = {"scissors", "paper", "rock"}
         //In order to win, player - cpu has to be -1 and 2 (scissor beats paper, paper beats rock, rock beats scissors)
         //To lose, player - cpu can be anything else
         if(playerInt - cpuInt == -1 || playerInt - cpuInt == 2){
             return RPS.PLAYER_WIN_OUTCOME;
-        } 
-        
-        if(playerInt - cpuInt != -1){
+        } else{
             return RPS.CPU_WIN_OUTCOME;
-        }
-
-        return RPS.INVALID_INPUT_OUTCOME;  
+        }    
     }
 
     public static void main(String[] args) {

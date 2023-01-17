@@ -78,7 +78,37 @@ public abstract class RPSAbstract implements RPSInterface {
         // Add one to the appropriate statistics
         // Add appropriate Javadoc method header
         //While loop to play as long as user input is not q
-        determineWinner(playerMove, cpuMove);
+        int result = determineWinner(playerMove, cpuMove);
+
+        switch(result){
+                //Case where invalid input: nothing happens, prints out invalid input message
+                case INVALID_INPUT_OUTCOME:
+                        System.out.println(INVALID_INPUT);
+
+                //Case where player wins: prints CPU move, prints player wins message.
+                //Adds 1 to numGames and numPlayerWins
+                case PLAYER_WIN_OUTCOME:
+                        System.out.printf(CPU_MOVE, cpuMove);
+                        System.out.printf("%s\n", PLAYER_WIN);
+                        numGames++;
+                        numPlayerWins++;
+
+                //Case where CPU wins: prints CPU move, prints CPU wins message.
+                //Adds 1 to numGames and numCPUWins
+                case CPU_WIN_OUTCOME:
+                        System.out.printf(CPU_MOVE, cpuMove);
+                        System.out.printf("%s\n", CPU_WIN);
+                        numGames++;
+                        numCPUWins++;
+
+                //Case where ties: prints CPU move, prints tie message.
+                //Adds 1 to numGames and numTies      
+                case TIE_OUTCOME:
+                        System.out.printf(CPU_MOVE, cpuMove);
+                        System.out.printf("%s\n", TIE);
+                        numGames++;
+                        numTies++;
+        }       
     }
 
 
