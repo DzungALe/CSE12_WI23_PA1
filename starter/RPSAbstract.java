@@ -14,8 +14,8 @@ public abstract class RPSAbstract implements RPSInterface {
     protected int numTies = 0;
 
     // The complete history of the moves
-    protected String[] playerMoves = new String[5];
-    protected String[] cpuMoves = new String[5];
+    protected String[] playerMoves;
+    protected String[] cpuMoves;
 
     // The default moves.  Use for the basic implementation of the game.
     protected static final String[] DEFAULT_MOVES = {"scissors", "paper",
@@ -87,8 +87,9 @@ public abstract class RPSAbstract implements RPSInterface {
                 
         int result = determineWinner(playerMove, cpuMove);
 
+        //Switch case for different inputs
         switch(result){
-                //Case where invalid input: nothing happens, prints out invalid input message
+                //Default: invalid input where nothing happens, prints out invalid input message
                 default:
                         System.out.println(INVALID_INPUT);
                         break;
@@ -116,14 +117,7 @@ public abstract class RPSAbstract implements RPSInterface {
                         System.out.printf("%s\n", TIE);
                         numTies++;
                         break;
-        }       
-
-        //If numGames is equal to either array size, resize array by multiplying it by 2
-        //Append player choice to playerMoves 
-        //Append cpu choice to cpuMoves
-        //If not invalid input, increase games by 1
-        
-        
+        }            
     }
  
     // The following methods have been already implemented. Do not change them.

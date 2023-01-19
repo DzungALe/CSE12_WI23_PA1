@@ -59,7 +59,7 @@ public class RPS extends RPSAbstract {
     public static void main(String[] args) {
         //Create scanner
         Scanner in = new Scanner(System.in);
-        String input = "";
+        String input = ""; //declared new input variable to let while loop work smoothly
 
         // If command line args are provided use those as the possible moves
         String[] moves = new String[args.length];
@@ -82,11 +82,13 @@ public class RPS extends RPSAbstract {
         //Starting message and takes line input
      
         //While loop that runs while user input is not "q"
+        
         while(!input.equals(RPS.QUIT)){
             System.out.println(RPS.PROMPT_MOVE);
             input = in.nextLine();
             game.playRPS(input, game.genCPUMove());
         }
+        
         
         game.displayStats();
         in.close();
