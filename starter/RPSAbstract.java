@@ -59,11 +59,15 @@ public abstract class RPSAbstract implements RPSInterface {
     public boolean isValidMove(String move) {
         // TODO
         // Use a loop here
+        //If move is an instance of string, then proceed. 
+        //If not, return false (in the case of null arguments)
         //Checks to see if move matches any string inside possibleMoves.
         //If yes, return true
-        for(String i : possibleMoves){
-                if(move.equals(i)){
-                        return true;
+        if(move instanceof String){
+                for(String i : possibleMoves){
+                        if(move.equals(i)){
+                                return true;
+                        }
                 }
         }
         //Returns false if input is invalid
