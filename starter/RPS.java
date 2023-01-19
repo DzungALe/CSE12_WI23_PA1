@@ -21,7 +21,7 @@ public class RPS extends RPSAbstract {
         int playerIdx = 0, cpuIdx = 0;
 
         //Looks for move validity right away. If not valid, return -1 and exit
-        if(!isValidMove(playerMove)){
+        if(!isValidMove(playerMove) || !isValidMove(cpuMove)){
             return RPS.INVALID_INPUT_OUTCOME;
         }
 
