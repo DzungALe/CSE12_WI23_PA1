@@ -14,8 +14,8 @@ public abstract class RPSAbstract implements RPSInterface {
     protected int numTies = 0;
 
     // The complete history of the moves
-    protected String[] playerMoves;
-    protected String[] cpuMoves;
+    protected String[] playerMoves = new String[5];
+    protected String[] cpuMoves = new String[5];
 
     // The default moves.  Use for the basic implementation of the game.
     protected static final String[] DEFAULT_MOVES = {"scissors", "paper",
@@ -66,7 +66,6 @@ public abstract class RPSAbstract implements RPSInterface {
                         return true;
                 }
         }
-
         //Returns false if input is invalid
         return false;  // dummy return value so code compiles.
     }
@@ -78,40 +77,51 @@ public abstract class RPSAbstract implements RPSInterface {
         // Add one to the appropriate statistics
         // Add appropriate Javadoc method header
         //While loop to play as long as user input is not q
+        if(playerMove.equals(QUIT)){
+                return;
+        }
+                
         int result = determineWinner(playerMove, cpuMove);
 
         switch(result){
                 //Case where invalid input: nothing happens, prints out invalid input message
-                case INVALID_INPUT_OUTCOME:
+                default:
                         System.out.println(INVALID_INPUT);
+                        break;
 
                 //Case where player wins: prints CPU move, prints player wins message.
                 //Adds 1 to numGames and numPlayerWins
                 case PLAYER_WIN_OUTCOME:
                         System.out.printf(CPU_MOVE, cpuMove);
                         System.out.printf("%s\n", PLAYER_WIN);
-                        numGames++;
                         numPlayerWins++;
+                        break;
 
                 //Case where CPU wins: prints CPU move, prints CPU wins message.
                 //Adds 1 to numGames and numCPUWins
                 case CPU_WIN_OUTCOME:
                         System.out.printf(CPU_MOVE, cpuMove);
                         System.out.printf("%s\n", CPU_WIN);
-                        numGames++;
                         numCPUWins++;
+                        break;
 
                 //Case where ties: prints CPU move, prints tie message.
                 //Adds 1 to numGames and numTies      
                 case TIE_OUTCOME:
                         System.out.printf(CPU_MOVE, cpuMove);
                         System.out.printf("%s\n", TIE);
-                        numGames++;
                         numTies++;
+                        break;
         }       
+
+        //If numGames is equal to either array size, resize array by multiplying it by 2
+        //Append player choice to playerMoves 
+        //Append cpu choice to cpuMoves
+        //If not invalid input, increase games by 1
+        
+        
     }
-
-
+ 
     // The following methods have been already implemented. Do not change them.
 
     /**

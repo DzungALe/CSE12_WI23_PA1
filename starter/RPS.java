@@ -18,18 +18,23 @@ public class RPS extends RPSAbstract {
 
     public int determineWinner(String playerMove, String cpuMove) {
         // TODO
-        int playerInt = -1, cpuInt = 0;
+        int playerInt = 0, cpuInt = 0;
 
-        for(int i = 0; i < possibleMoves.length; i++){
-            if(playerMove.equals(possibleMoves[i]))
-                playerInt = i;
-            if(cpuMove.equals(possibleMoves[i]))
-                cpuInt = i;
+        //Looks for move validity right away. If not valid, return -1 and exit
+        if(!isValidMove(playerMove)){
+            return RPS.INVALID_INPUT_OUTCOME;
         }
 
-        //if playerInt does not get assigned to a variable, it is not a valid input, and therefore return invalid input.
-        if (playerInt == -1){
-            return RPS.INVALID_INPUT_OUTCOME;
+        //Record game number
+        playerMoves[numGames] = playerMove;
+        cpuMoves[numGames] = cpuMove;
+        numGames++;
+    
+        for(int i = 0; i < this.possibleMoves.length; i++){
+            if(playerMove.equals(this.possibleMoves[i]))
+                playerInt = i;
+            if(cpuMove.equals(this.possibleMoves[i]))
+                cpuInt = i;
         }
         
         //Same move, then tie
@@ -49,6 +54,7 @@ public class RPS extends RPSAbstract {
     public static void main(String[] args) {
         //Create scanner
         Scanner in = new Scanner(System.in);
+        String input = "";
 
         // If command line args are provided use those as the possible moves
         String[] moves = new String[args.length];
@@ -62,8 +68,6 @@ public class RPS extends RPSAbstract {
 
         // Create new game
         RPS game = new RPS(moves);
-        
-        System.out.println(GAME_NOT_IMPLEMENTED);
 
         // TODO: Insert the code to play the game. 
         // See the writeup for an example of the game play.
@@ -71,12 +75,13 @@ public class RPS extends RPSAbstract {
         // to do most of the work! And don't forget Javadoc.
 
         //Starting message and takes line input
-        System.out.println(RPS.PROMPT_MOVE);
-
+     
         //While loop that runs while user input is not "q"
-        while(!in.nextLine().equals(RPS.QUIT))
-            game.playRPS(in.nextLine(), game.genCPUMove());
-        
+        while(!input.equals(RPS.QUIT)){
+            System.out.println(RPS.PROMPT_MOVE);
+            input = in.nextLine();
+            game.playRPS(input, game.genCPUMove());
+        }
         
         game.displayStats();
         in.close();
