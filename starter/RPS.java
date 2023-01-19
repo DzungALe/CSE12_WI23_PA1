@@ -18,37 +18,42 @@ public class RPS extends RPSAbstract {
 
     public int determineWinner(String playerMove, String cpuMove) {
         // TODO
-        int playerInt = 0, cpuInt = 0;
+        int playerIdx = 0, cpuIdx = 0;
 
         //Looks for move validity right away. If not valid, return -1 and exit
         if(!isValidMove(playerMove)){
             return RPS.INVALID_INPUT_OUTCOME;
         }
 
-        //Record game number
+        //Record game number and adds numGames
         playerMoves[numGames] = playerMove;
         cpuMoves[numGames] = cpuMove;
         numGames++;
     
+        //Assigns playerMove and cpuMove to int values equivalent to indexes of possibleMoves array
+        //Helps with comparision algorithm
         for(int i = 0; i < this.possibleMoves.length; i++){
             if(playerMove.equals(this.possibleMoves[i]))
-                playerInt = i;
+                playerIdx = i;
             if(cpuMove.equals(this.possibleMoves[i]))
-                cpuInt = i;
+                cpuIdx = i;
         }
         
-        //Same move, then tie
-        if(playerInt == cpuInt)
-            return RPS.TIE_OUTCOME;
+        /* 
+        *   DEFAULT_MOVES = {"scissors", "paper", "rock"}
+        *   For default setup, any index before beats the next, and last index beats first (scissor beats paper, paper beats rock, rock beats scissors)
+        *   For Pokemon implentation, any index before beats the next, last index beats first, and any other combination is a tie
+        */
 
-        //DEFAULT_MOVES = {"scissors", "paper", "rock"}
-        //In order to win, player - cpu has to be -1 and 2 (scissor beats paper, paper beats rock, rock beats scissors)
-        //To lose, player - cpu can be anything else
-        if(playerInt - cpuInt == -1 || playerInt - cpuInt == 2){
+        //Accounts for if playerIdx is 1 less than cpuIdx OR if cpuIdx is at the beginning
+        if(playerIdx - cpuIdx == -1 || playerIdx == possibleMoves.length - 1 && cpuIdx == 0){
             return RPS.PLAYER_WIN_OUTCOME;
-        } else{
+        }
+        else if(playerIdx - cpuIdx == 1 || playerIdx == 0 && cpuIdx == possibleMoves.length - 1){
             return RPS.CPU_WIN_OUTCOME;
-        }    
+        } else{
+            return RPS.TIE_OUTCOME;
+        }
     }
 
     public static void main(String[] args) {
